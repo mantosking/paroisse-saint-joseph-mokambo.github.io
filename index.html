@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Paroisse Saint Joseph Mokambo - Votre communauté catholique en ligne">
+    <title>Paroisse Saint Joseph Mokambo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-church"></i>
+                <span>Paroisse Saint Joseph Mokambo</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#accueil" class="active">Accueil</a></li>
+                <li><a href="#liturgie">Liturgie</a></li>
+                <li><a href="#saints">Saints du Jour</a></li>
+                <li><a href="#magasin">Magasin</a></li>
+                <li><a href="admin.html" class="btn-admin">Administration</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Hero -->
+    <header class="hero" id="accueil">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Paroisse Saint Joseph Mokambo</h1>
+            <p class="hero-subtitle">Communauté Catholique</p>
+            <div class="liturgical-season">
+                <i class="fas fa-calendar-alt"></i>
+                <span id="currentTime"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Communiqué du Jour -->
+    <section class="communique-section">
+        <div class="container">
+            <div class="communique-card animate-fade-in">
+                <div class="communique-header">
+                    <i class="fas fa-bullhorn"></i>
+                    <h2>Communiqué du Jour</h2>
+                </div>
+                <div id="communique-content" class="communique-body">
+                    <!-- Contenu dynamique -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Date et Temps Liturgique -->
+    <section class="liturgical-time-section">
+        <div class="container">
+            <div class="date-time-card animate-slide-up">
+                <div class="card-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="card-content">
+                    <h3 id="currentDate"></h3>
+                    <p id="liturgicalTime"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grid Sections -->
+    <section class="content-grid" id="liturgie">
+        <div class="container">
+            <div class="grid-container">
+                <!-- Lectures Saintes -->
+                <div class="grid-card animate-card">
+                    <div class="card-header">
+                        <i class="fas fa-book-bible"></i>
+                        <h3>Lectures Saintes du Jour</h3>
+                    </div>
+                    <div id="readings" class="card-body">
+                        <!-- Contenu dynamique -->
+                    </div>
+                </div>
+
+                <!-- Saints Célébrés -->
+                <div class="grid-card animate-card" id="saints">
+                    <div class="card-header">
+                        <i class="fas fa-crown"></i>
+                        <h3>Saints Célébrés</h3>
+                    </div>
+                    <div id="saintsCelebrated" class="card-body">
+                        <!-- Contenu dynamique -->
+                    </div>
+                </div>
+
+                <!-- Bréviaire -->
+                <div class="grid-card animate-card">
+                    <div class="card-header">
+                        <i class="fas fa-pray"></i>
+                        <h3>Lectures du Bréviaire</h3>
+                    </div>
+                    <div id="breviary" class="card-body">
+                        <!-- Contenu dynamique -->
+                    </div>
+                </div>
+
+                <!-- Explication de l'Évangile -->
+                <div class="grid-card animate-card">
+                    <div class="card-header">
+                        <i class="fas fa-bible"></i>
+                        <h3>Explication de l'Évangile</h3>
+                    </div>
+                    <div id="gospelExplanation" class="card-body">
+                        <!-- Contenu dynamique -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Magasin de l'Église -->
+    <section class="shop-section" id="magasin">
+        <div class="container">
+            <h2 class="section-title">Magasin de l'Église</h2>
+            <div id="products-grid" class="products-grid">
+                <!-- Produits dynamiques -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Paroisse Saint Joseph Mokambo</h3>
+                    <p>© <span id="year"></span> Tous droits réservés</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

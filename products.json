@@ -1,0 +1,38 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Chapelet en Bois d'Olivier",
+      "description": "Magnifique chapelet fabriqué à la main avec des perles en bois d'olivier de Terre Sainte",
+      "price": 25.00,
+      "stock": 15,
+      "images": [
+        "images/products/chapelet1.jpg",
+        "images/products/chapelet2.jpg",
+        "images/products/chapelet3.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Bible de Jérusalem",
+      "description": "Édition luxe avec couverture en cuir, idéale pour l'étude et la prière",
+      "price": 45.00,
+      "stock": 8,
+      "images": [
+        "images/products/bible1.jpg",
+        "images/products/bible2.jpg"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Icône de Saint Joseph",
+      "description": "Icône traditionnelle peinte à la main, bénie par le curé de la paroisse",
+      "price": 35.00,
+      "stock": 5,
+      "images": [
+        "images/products/icone1.jpg",
+        "images/products/icone2.jpg"
+      ]
+    }
+  ]
+}

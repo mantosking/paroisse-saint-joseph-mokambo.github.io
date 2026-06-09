@@ -1,0 +1,205 @@
+class ParishAPI {
+    constructor() {
+        this.baseURL = 'https://api.example-catholic.org'; // API officielle catholique
+        this.cache = {};
+        this.cacheTimeout = 3600000; // 1 heure
+    }
+
+    // Obtenir les lectures du jour
+    async getDailyReadings() {
+        const today = new Date().toISOString().split('T')[0];
+        const cacheKey = `readings_${today}`;
+        
+        if (this.isCacheValid(cacheKey)) {
+            return this.cache[cacheKey].data;
+        }
+
+        try {
+            // Simulation d'appel API - À remplacer par l'API réelle
+            const readings = await this.fetchWithAI('lectures du jour');
+            
+            this.setCache(cacheKey, readings);
+            return readings;
+        } catch (error) {
+            console.error('Erreur lors de la récupération des lectures:', error);
+            return this.getDefaultReadings();
+        }
+    }
+
+    // Obtenir les saints du jour
+    async getSaintsOfDay() {
+        const today = new Date().toISOString().split('T')[0];
+        const cacheKey = `saints_${today}`;
+
+        if (this.isCacheValid(cacheKey)) {
+            return this.cache[cacheKey].data;
+        }
+
+        try {
+            const saints = await this.fetchWithAI('saints célébrés aujourd\'hui');
+            this.setCache(cacheKey, saints);
+            return saints;
+        } catch (error) {
+            console.error('Erreur lors de la récupération des saints:', error);
+            return this.getDefaultSaints();
+        }
+    }
+
+    // Obtenir le bréviaire
+    async getBreviary() {
+        const today = new Date().toISOString().split('T')[0];
+        const cacheKey = `breviary_${today}`;
+
+        if (this.isCacheValid(cacheKey)) {
+            return this.cache[cacheKey].data;
+        }
+
+        try {
+            const breviary = await this.fetchWithAI('bréviaire du jour');
+            this.setCache(cacheKey, breviary);
+            return breviary;
+        } catch (error) {
+            console.error('Erreur lors de la récupération du bréviaire:', error);
+            return this.getDefaultBreviary();
+        }
+    }
+
+    // Obtenir l'explication de l'évangile
+    async getGospelExplanation() {
+        const today = new Date().toISOString().split('T')[0];
+        const cacheKey = `gospel_${today}`;
+
+        if (this.isCacheValid(cacheKey)) {
+            return this.cache[cacheKey].data;
+        }
+
+        try {
+            const explanation = await this.fetchWithAI('explication de l\'évangile du jour');
+            this.setCache(cacheKey, explanation);
+            return explanation;
+        } catch (error) {
+            console.error('Erreur lors de la récupération de l\'explication:', error);
+            return this.getDefaultExplanation();
+        }
+    }
+
+    // Obtenir le temps liturgique
+    async getLiturgicalTime() {
+        const today = new Date();
+        
+        // Calculer le temps liturgique en fonction de la date
+        const liturgicalCalendar = this.calculateLiturgicalTime(today);
+        return liturgicalCalendar;
+    }
+
+    // Calculer le temps liturgique
+    calculateLiturgicalTime(date) {
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+
+        // Calcul simplifié du temps liturgique
+        // À remplacer par un calcul plus précis
+        let season = '';
+        let week = '';
+        let yearLetter = '';
+
+        // Déterminer l'année liturgique (A, B, C)
+        const yearCycle = (year - 1) % 3;
+        if (yearCycle === 0) yearLetter = 'C';
+        else if (yearCycle === 1) yearLetter = 'A';
+        else yearLetter = 'B';
+
+        // Déterminer la saison
+        if (month === 12 && day >= 25 || month === 1 && day <= 6) {
+            season = 'Temps de Noël';
+        } else if (month >= 2 && month <= 5) {
+            season = 'Temps du Carême';
+        } else if (month >= 4 && month <= 5) {
+            season = 'Temps Pascal';
+        } else {
+            season = 'Temps Ordinaire';
+        }
+
+        // Calculer le numéro du dimanche (simplifié)
+        const startOfYear = new Date(year, 0, 1);
+        const days = Math.floor((date - startOfYear) / (24 * 60 * 60 * 1000));
+        const weekNumber = Math.ceil(days / 7);
+
+        return {
+            season: season,
+            week: weekNumber,
+            year: yearLetter,
+            fullDescription: `${weekNumber}ème dimanche du ${season}, année ${yearLetter}`
+        };
+    }
+
+    // Fonction d'appel à l'IA gratuite
+    async fetchWithAI(query) {
+        // Simulation de réponse IA - À remplacer par une vraie API IA
+        const responses = {
+            'lectures du jour': {
+                premiere: "Lecture du livre d'Isaïe (Is 55, 1-11)",
+                psaume: "Psaume 144 (145)",
+                deuxieme: "Lecture de la première lettre de saint Paul Apôtre aux Corinthiens (1 Co 3, 16-23)",
+                evangile: "Évangile de Jésus-Christ selon saint Matthieu (Mt 5, 1-12)"
+            },
+            'saints célébrés aujourd\'hui': [
+                { nom: "Saint Joseph", description: "Époux de la Vierge Marie, patron de l'Église universelle" },
+                { nom: "Sainte Thérèse d'Avila", description: "Docteur de l'Église, réformatrice du Carmel" }
+            ],
+            'bréviaire du jour': {
+                office: "Office des lectures",
+                lectures: [
+                    "Lecture du livre de la Genèse",
+                    "Homélie de saint Jean Chrysostome"
+                ]
+            },
+            'explication de l\'évangile du jour': "L'évangile d'aujourd'hui nous invite à être sel de la terre et lumière du monde. Jésus nous appelle à témoigner de notre foi par nos actions concrètes..."
+        };
+
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(responses[query] || { message: "Contenu non disponible" });
+            }, 500);
+        });
+    }
+
+    // Système de cache
+    isCacheValid(key) {
+        if (!this.cache[key]) return false;
+        const now = Date.now();
+        return (now - this.cache[key].timestamp) < this.cacheTimeout;
+    }
+
+    setCache(key, data) {
+        this.cache[key] = {
+            data: data,
+            timestamp: Date.now()
+        };
+    }
+
+    // Valeurs par défaut
+    getDefaultReadings() {
+        return {
+            premiere: "Lecture non disponible",
+            psaume: "Psaume non disponible",
+            evangile: "Évangile non disponible"
+        };
+    }
+
+    getDefaultSaints() {
+        return [{ nom: "Information non disponible", description: "Veuillez réessayer plus tard" }];
+    }
+
+    getDefaultBreviary() {
+        return { office: "Office non disponible", lectures: [] };
+    }
+
+    getDefaultExplanation() {
+        return "Explication non disponible pour le moment.";
+    }
+}
+
+// Export pour utilisation dans les autres fichiers
+window.parishAPI = new ParishAPI();
